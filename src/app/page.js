@@ -31,22 +31,28 @@ const Home = () => {
 
   // Auto-slide function
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      slideTo((currentIndex + 1) % carouselImages.length);
-    }, 2000); // Change every 3 seconds
+    // Reset to first slide on mount
+    slideTo(0);
 
-    return () => clearInterval(intervalRef.current); // Cleanup interval
-  }, [currentIndex]); // Runs when `currentIndex` changes
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % carouselImages.length;
+        slideTo(nextIndex);
+        return nextIndex;
+      });
+    }, 4000); 
+
+    return () => clearInterval(intervalRef.current);
+  }, []); 
 
   return (
     <div className="max-w-5xl mx-auto relative py-10">
       <h1 className="text-3xl font-bold text-center mb-6">GSAP Auto-Carousel</h1>
 
       <div className="relative overflow-hidden w-full">
-        {/* Carousel Track */}
         <div ref={containerRef} className="flex items-center justify-center relative h-[500px]">
           {carouselImages.map((image, index) => (
-            <div key={index} className="absolute w-[80%] md:w-[60%] lg:w-[50%]">
+            <div key={index} className="absolute w-[90%] md:w-[60%] lg:w-[50%]">
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -60,7 +66,7 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Navigation Buttons */}
+       
         <button
           onClick={() => slideTo((currentIndex - 1 + carouselImages.length) % carouselImages.length)}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition"

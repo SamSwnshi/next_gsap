@@ -6,7 +6,7 @@ import Image from "next/image";
 const Home = () => {
   const carouselImages = [
     { src: "/assets/cat-1.jpg", alt: "First slide" },
-    { src: "/assets/cat-2.jpg", alt: "Second slide" },
+    { src: "/assets/CAT-2.jpg", alt: "Second slide" },
     { src: "/assets/cat-3.jpg", alt: "Third slide" },
     { src: "/assets/cat-4.jpg", alt: "Fourth slide" },
     { src: "/assets/cat-5.jpg", alt: "Fifth slide" },
